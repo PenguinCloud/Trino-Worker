@@ -1,0 +1,45 @@
+---
+- name: create Trino directory
+  file:
+    path: /opt/trino
+    state: directory
+
+- name: download Trino
+  ansible.builtin.get_url:
+    url: "{{ trino.link }}"
+    dest: /opt/
+
+- name: Unarchive a file that is already on the remote machine
+  ansible.builtin.unarchive:
+    src: "/opt/{{ trino.arc_version }}"
+    dest: /opt/
+    remote_src: yes
+
+- name: Remove file (delete file)
+  ansible.builtin.file:
+    path: "/opt/{{ trino.arc_version }}"
+    state: absent
+
+- name: Rename Trino
+  shell: "mv /opt/{{ trino.version }}/* /opt/trino/"
+
+- name: Recursively remove downloaded directory
+  ansible.builtin.file:
+    path: /opt/{{ trino.version }}/
+    state: absent
+
+# This needs to be outside of the Trino directory
+- name: create data directory for Trino
+  file:
+    path: /opt/dtrino/tdata/
+    state: directory
+
+- name: create "etc" directory for Trino
+  file:
+    path: /opt/trino/etc/
+    state: directory
+
+- name: create a catalog directory in the "etc" directory for Trino
+  file:
+    path: /opt/trino/etc/catalog/
+    state: directory

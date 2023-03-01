@@ -1,0 +1,21 @@
+---
+- name: Set the security limits for this file
+  ansible.builtin.blockinfile:
+    path: /etc/security/limits.conf
+    insertafter: '^#@student        -       maxlogins       4'
+    block: |
+      trino soft nofile 131072
+      trino hard nofile 131072
+
+- name: Allow to attach Serviceability Agent to adjust sudoers file
+  community.general.sudoers:
+    name: trino-service-agent
+    state: present
+    user: ptg-user
+    commands:
+      - /usr/bin/apt
+#      - /usr/bin/echo 0
+      - /opt/trino/bin/launcher
+      - /usr/bin/java
+#      - /usr/bin/tee /proc/sys/kernel/yama/ptrace_scope
+    nopassword: true

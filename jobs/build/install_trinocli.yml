@@ -1,0 +1,19 @@
+---
+- name: create Trino CLI directory
+  file:
+    path: /opt/trino/trinocli
+    state: directory
+
+- name: download Trino
+  ansible.builtin.get_url:
+    url: "{{ trinocli.link }}"
+    dest: /opt/trino/trinocli
+
+- name: Rename Trino CLI file
+  shell: "mv /opt/trino/trinocli/{{ trinocli.jar_version }} /opt/trino/trinocli/trino"
+
+- name: Make the Trino CLI Jar an exec
+  ansible.builtin.file:
+    path: /opt/trino/trinocli/trino
+    state: file
+    mode: a+x

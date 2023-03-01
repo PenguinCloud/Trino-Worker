@@ -1,0 +1,32 @@
+---
+version: "2.4"
+services:
+#  trino-cord:
+#    image: penguintech/trino-cord
+#    ports:
+#      - "8181:8181"
+#      - "9082:9082"
+#      - "9083:9083"
+#    networks:
+#      - trino
+
+  trino-work:
+    image: penguintech/trino-worker
+    build: .
+    ports:
+      - "8080-8090:8080"
+#      - "9080-9085:9080"
+#      - "9181-9186:9181"
+#    depends_on:
+#      - trino-cord
+    networks:
+      - trino
+    healthcheck:
+        test: [ "CMD", "ansible-playbook", "entrypoint.yml", "--tag", "test" ]
+        interval: 5m
+        timeout: 10s
+        retries: 5
+        start_period: 5s
+
+networks:
+  trino:

@@ -1,0 +1,30 @@
+---
+- name: Template the for the Trino config props config file
+  ansible.builtin.template:
+    src: /opt/manager/templates/config.properties.j2
+    dest: /opt/trino/etc/config.properties
+    force: yes
+
+- name: Template the JMX config for Trino
+  ansible.builtin.template:
+    src: /opt/manager/templates/jmx.properties.j2
+    dest: /opt/trino/etc/catalog/jmx.properties
+    force: yes
+
+- name: Template the for the Trino JVM config file
+  ansible.builtin.template:
+    src: /opt/manager/templates/jvm.config.j2
+    dest: /opt/trino/etc/jvm.config
+    force: yes
+
+- name: Template the for the Trino log props config file
+  ansible.builtin.template:
+    src: /opt/manager/templates/log.properties.j2
+    dest: /opt/trino/etc/log.properties
+    force: yes
+
+- name: Template the for the Trino node props config file
+  ansible.builtin.template:
+    src: /opt/manager/templates/node.properties.j2
+    dest: /opt/trino/etc/node.properties
+    force: yes

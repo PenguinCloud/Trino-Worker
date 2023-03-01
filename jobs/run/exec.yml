@@ -1,0 +1,21 @@
+---
+#- name: Run output test to see why this isn't working
+#  include_tasks:
+#    file: jobs/tests/test.yml
+
+- name: Run Trino Server in a loop until it runs.
+  ansible.builtin.shell:
+    cmd: /opt/trino/bin/launcher start
+
+#  This code below is NOT needed, but good for what NOT to do:
+#- name: Start the Service Agent
+#  ansible.builtin.shell:
+#    cmd: /usr/bin/echo 0 | sudo tee /proc/sys/kernel/yama/ptrace_scope
+#  register: cmd_result
+#  until: cmd_result is succeeded
+#  retries: 5
+#  delay: 15
+
+#- name: Run Trino CLI shell
+#  shell:
+#    cmd: /opt/trino/trinocli/./trino --server http://localhost:8080/

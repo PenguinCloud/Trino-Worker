@@ -1,0 +1,27 @@
+---
+- name: Recursively change ownership of trino directory
+  ansible.builtin.file:
+    path: /opt/trino
+    state: directory
+    recurse: yes
+    owner: "{{ run.user }}"
+    group: "{{ run.user }}"
+
+- name: Recursively change ownership of "data" directory
+  ansible.builtin.file:
+    path: /opt/dtrino/
+    state: directory
+    recurse: yes
+    owner: "{{ run.user }}"
+    group: "{{ run.user }}"
+
+
+
+#- name: Recursively change ownership of "yama" directory for Serviceability Agent
+#  ansible.builtin.file:
+#    path: /proc/sys/kernel/yama/
+#    state: directory
+#    recurse: yes
+#    owner: "{{ run.user }}"
+#    group: "{{ run.user }}"
+

@@ -1,0 +1,19 @@
+---
+- name: Start the Trino Service
+  ansible.builtin.shell:
+    cmd: /opt/trino/bin/launcher start
+  register: cmd_result_start
+
+- name: Check to see if the Trino Service is Running
+  ansible.builtin.shell:
+    cmd: /opt/trino/bin/launcher status -v
+  register: cmd_result_status
+
+- debug:
+    msg: "Start Command stdout: {{cmd_result_start.stdout}}"
+- debug:
+    msg: "Start Command stderr: {{cmd_result_start.stderr}}"
+- debug:
+    msg: "Status Command stdout: {{cmd_result_status.stdout}}"
+- debug:
+    msg: "Status Command stderr: {{cmd_result_status.stderr}}"

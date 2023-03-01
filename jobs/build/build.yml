@@ -1,0 +1,20 @@
+---
+- name: Install dependencies
+  include_tasks:
+    file: install_dependencies.yml
+
+- name: Install Trino
+  include_tasks:
+    file: install_trino.yml
+
+- name: Set Security Limits
+  include_tasks:
+    file: security_reqs.yml
+
+- name: Install Trino CLI
+  include_tasks:
+    file: install_trinocli.yml
+
+- name: Grant Perms Trino
+  include_tasks:
+    file: permissions_trino.yml

@@ -1,0 +1,13 @@
+run:
+  user: ptg-user
+app:
+  title: "{{ lookup('ansible.builtin.env', 'APP_TILE') }}"
+
+trino:
+  link: "{{ lookup('ansible.builtin.env', 'TRINO_LINK') }}"
+  version: "{{ lookup('ansible.builtin.env', 'TRINO_VERSION') }}"
+  arc_version: "{{ lookup('ansible.builtin.env', 'TRINO_ARC_VERSION') }}"
+
+trinocli:
+  link: "{{ lookup('ansible.builtin.env', 'TRINOCLI_LINK') }}"
+  jar_version: "{{ lookup('ansible.builtin.env', 'TRINOCLI_JAR_VERSION') }}"
